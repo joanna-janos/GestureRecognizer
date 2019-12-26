@@ -2,7 +2,7 @@ import torch
 from PIL import Image
 from sklearn.model_selection import train_test_split
 from torch.utils.data import Dataset, DataLoader
-from torchvision.transforms import ToTensor
+from torchvision.transforms import Compose, ToTensor
 
 
 class GestureDataset(Dataset):
@@ -21,8 +21,12 @@ class GestureDataset(Dataset):
         return img, torch.tensor(self.gestures[idx])
 
 
+def _get_img_transformations():
+    return Compose([ToTensor()])
+
+
 def _create_dataloader(X, y, batch_size=64, shuffle=True):
-    transforms = ToTensor()
+    transforms = _get_img_transformations()
     dataset = GestureDataset(X, y, transforms)
     dataloader = DataLoader(dataset, batch_size=batch_size, shuffle=shuffle)
     return dataloader
