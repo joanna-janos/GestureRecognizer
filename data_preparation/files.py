@@ -2,7 +2,7 @@ import os
 import re
 
 
-def get_paths_and_gesture(data_directory):
+def get_paths_and_gestures(data_directory):
     path_gesture = []
     for r, _, f in os.walk(data_directory):
         for file in f:
