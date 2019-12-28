@@ -2,7 +2,7 @@ import torch
 from PIL import Image
 from sklearn.model_selection import train_test_split
 from torch.utils.data import Dataset, DataLoader
-from torchvision.transforms import Compose, ToTensor
+from torchvision.transforms import Compose, ToTensor, ColorJitter
 
 
 class GestureDataset(Dataset):
@@ -22,7 +22,12 @@ class GestureDataset(Dataset):
 
 
 def _get_img_transformations():
-    return Compose([ToTensor()])
+    # https://pytorch.org/docs/stable/torchvision/transforms.html
+    return Compose([
+        ToTensor(),
+        ColorJitter(brightness=0.2, contrast=0.2, saturation=0.2)  # will be applied RANDOMLY
+        # TODO: consider other transformations like horizontal/vertical flip where gestures will be choosen
+    ])
 
 
 def _create_dataloader(X, y, batch_size=64, shuffle=True):
