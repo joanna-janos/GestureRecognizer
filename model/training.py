@@ -142,4 +142,5 @@ def train_and_validate(model_name: str,
         train(model, train_data_loader, optimizer, loss, batch_size)
         accuracy = validate(model, validation_data_loader, loss, batch_size)
         if accuracy > best_accuracy:
+            best_accuracy = accuracy
             save_model(path_to_saved_model, model, model_name, train_only_last_layer, accuracy)
