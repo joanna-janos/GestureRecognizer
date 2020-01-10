@@ -99,10 +99,10 @@ def save_model(path_to_saved_model: str,
     """
     create_not_existing_directory(path_to_saved_model)
     if train_only_last_layer:
-        path_to_saved_model_with_filename = path_to_saved_model + model_name + '_trained_only_last_layer' + str(
+        path_to_saved_model_with_filename = path_to_saved_model + model_name + '_trained_only_last_layer_' + str(
             accuracy) + '.pt'
     else:
-        path_to_saved_model_with_filename = path_to_saved_model + model_name + '_trained_everything' + str(
+        path_to_saved_model_with_filename = path_to_saved_model + model_name + '_trained_everything_' + str(
             accuracy) + '.pt'
     torch.save(model.state_dict(), path_to_saved_model_with_filename)
 
