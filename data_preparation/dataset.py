@@ -1,8 +1,12 @@
 import typing
 
 from PIL import Image
+from PIL import ImageFile
+
+ImageFile.LOAD_TRUNCATED_IMAGES = True
+
 from torch.utils.data import Dataset
-from torchvision.transforms import ToTensor
+from torchvision.transforms import Compose, Resize, ToTensor
 
 
 class GestureDataset(Dataset):
@@ -26,7 +30,7 @@ class GestureDataset(Dataset):
     def __init__(self,
                  paths: typing.List[str],
                  gestures: typing.List[str],
-                 transform=ToTensor()):
+                 transform=Compose([Resize((512, 256)), ToTensor()])):
         self.paths = paths
         self.gestures = gestures
         self.transform = transform
