@@ -2,7 +2,7 @@ import typing
 
 from sklearn.model_selection import train_test_split
 
-from data_preparation.data_loader import create_dataloader
+from data_preparation.dataloader import create_dataloader
 
 
 def _split_into_train_and_validation(data: typing.List[str],
