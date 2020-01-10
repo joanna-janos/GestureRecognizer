@@ -71,14 +71,17 @@ def validate(model: torch.nn.Module,
             correct += float(sum(output.argmax(dim=1) == y))
             loss_value = loss(output, y)
             overall_loss += loss_value
-    print(f'\tAccuracy: {correct / (len(data_loader) * batch_size)}')
+    accuracy = correct / (len(data_loader) * batch_size)
+    print(f'\tAccuracy: {accuracy}')
     print(f'\tLoss: {overall_loss / (len(data_loader) * batch_size)}')
+    return accuracy
 
 
 def save_model(path_to_saved_model: str,
-               model: typing.Dict,
-               model_name,
-               train_only_last_layer):
+               model: torch.nn.Module,
+               model_name: str,
+               train_only_last_layer: bool,
+               accuracy: float):
     """ Save trained model for future usage
 
     Arguments
@@ -91,12 +94,16 @@ def save_model(path_to_saved_model: str,
         Model name (filename will contain it)
     train_only_last_layer : bool
         Value indicating part of model that were trained (filename will contain information about it)
+    accuracy : float
+        Validation accuracy
     """
     create_not_existing_directory(path_to_saved_model)
     if train_only_last_layer:
-        path_to_saved_model_with_filename = path_to_saved_model + model_name + '_trained_only_last_layer.pt'
+        path_to_saved_model_with_filename = path_to_saved_model + model_name + '_trained_only_last_layer' + str(
+            accuracy) + '.pt'
     else:
-        path_to_saved_model_with_filename = path_to_saved_model + model_name + '_trained_everything.pt'
+        path_to_saved_model_with_filename = path_to_saved_model + model_name + '_trained_everything' + str(
+            accuracy) + '.pt'
     torch.save(model.state_dict(), path_to_saved_model_with_filename)
 
 
@@ -129,8 +136,10 @@ def train_and_validate(model_name: str,
     model = get_model(model_name, train_only_last_layer)
     loss = torch.nn.CrossEntropyLoss()
     optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
+    best_accuracy = 0
     for epoch in range(epochs):
         print(f'Epoch: {epoch + 1}/{epochs}')
         train(model, train_data_loader, optimizer, loss, batch_size)
-        validate(model, validation_data_loader, loss, batch_size)
-    save_model(path_to_saved_model, model, model_name, train_only_last_layer)
+        accuracy = validate(model, validation_data_loader, loss, batch_size)
+        if accuracy > best_accuracy:
+            save_model(path_to_saved_model, model, model_name, train_only_last_layer, accuracy)
