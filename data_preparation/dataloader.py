@@ -1,7 +1,7 @@
 import typing
 
 from torch.utils.data import DataLoader
-from torchvision.transforms import Compose, ToTensor, ColorJitter
+from torchvision.transforms import Compose, ToTensor, ColorJitter, RandomHorizontalFlip, RandomVerticalFlip
 
 from data_preparation.dataset import GestureDataset
 
@@ -16,9 +16,10 @@ def _get_img_transformations():
         composition of transformations
     """
     return Compose([
-        ColorJitter(brightness=0.2, contrast=0.2, saturation=0.2),  # will be applied RANDOMLY
+        ColorJitter(brightness=0.1, contrast=0.1, saturation=0.1),  # will be applied RANDOMLY
+        RandomHorizontalFlip(p=0.3),
+        RandomVerticalFlip(p=0.3),
         ToTensor()
-        # TODO: consider other transformations like horizontal/vertical flip when gestures will be chosen
     ])
 
 
