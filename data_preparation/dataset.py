@@ -36,4 +36,9 @@ class GestureDataset(Dataset):
 
     def __getitem__(self, idx: int):
         img = Image.open(self.paths[idx])
-        return self.transform(img), self.gestures[idx]
+        return self.transform(img), _gesture_name_to_class_label(self.gestures[idx])
+
+
+def _gesture_name_to_class_label(gesture_name):
+    gestures = ('1', '2', '3', '4', '5', 'A', 'O', 'U')
+    return gestures.index(gesture_name)
