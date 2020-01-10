@@ -12,6 +12,21 @@ def train(model: torch.nn.Module,
           optimizer: torch.optim.Optimizer,
           loss: typing.Callable,
           batch_size: int):
+    """ Train model on batched data using provided optimizer and loss
+
+    Arguments
+    ----------
+    model : torch.nn.Module
+        Model to train
+    data_loader: torch.utils.data.DataLoader
+        Data loader
+    optimizer : torch.optim.Optimizer
+        Optimizer used to update weights
+    loss : typing.Callable
+        Criterion to calculate loss
+    batch_size : int
+        Size of batch
+    """
     print(f'\tTraining')
     model.train()
     overall_loss = 0
@@ -33,6 +48,19 @@ def validate(model: torch.nn.Module,
              data_loader: torch.utils.data.DataLoader,
              loss: typing.Callable,
              batch_size: int):
+    """ Validate model on batched data
+
+    Arguments
+    ----------
+    model : torch.nn.Module
+        Model to validate
+    data_loader: torch.utils.data.DataLoader
+        Data loader
+    loss : typing.Callable
+        Criterion to calculate loss
+    batch_size : int
+        Size of batch
+    """
     print(f'\tValidating')
     model.eval()
     overall_loss = 0
@@ -47,13 +75,29 @@ def validate(model: torch.nn.Module,
     print(f'\tLoss: {overall_loss / (len(data_loader) * batch_size)}')
 
 
-def save_model(path_to_saved_model, model_state_dict, model_name, train_only_last_layer):
+def save_model(path_to_saved_model: str,
+               model: typing.Dict,
+               model_name,
+               train_only_last_layer):
+    """ Save trained model for future usage
+
+    Arguments
+    ----------
+    path_to_saved_model: str
+        Path where model will be stored
+    model : torch.nn.Module
+        Model to save
+    model_name : str
+        Model name (filename will contain it)
+    train_only_last_layer : bool
+        Value indicating part of model that were trained (filename will contain information about it)
+    """
     create_not_existing_directory(path_to_saved_model)
     if train_only_last_layer:
         path_to_saved_model_with_filename = path_to_saved_model + model_name + '_trained_only_last_layer.pt'
     else:
         path_to_saved_model_with_filename = path_to_saved_model + model_name + '_trained_everything.pt'
-    torch.save(model_state_dict, path_to_saved_model_with_filename)
+    torch.save(model.state_dict(), path_to_saved_model_with_filename)
 
 
 def train_and_validate(model_name: str,
@@ -63,6 +107,25 @@ def train_and_validate(model_name: str,
                        path_to_saved_model: str,
                        batch_size: int,
                        train_only_last_layer: bool):
+    """ Train and validate model and then save under `path_to_saved_model` directory
+
+    Arguments
+    ----------
+    model_name : str
+        Model name
+    train_data_loader : torch.utils.data.DataLoader
+        Data loader used for training
+    validation_data_loader : torch.utils.data.DataLoader
+        Data loader used for validation
+    epochs : int
+        Number of epochs
+    path_to_saved_model: str
+        Path where model will be stored
+    batch_size : int
+        Size of batch
+    train_only_last_layer : bool
+        Value indicating part of model that were trained
+    """
     model = get_model(model_name, train_only_last_layer)
     loss = torch.nn.CrossEntropyLoss()
     optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
@@ -70,4 +133,4 @@ def train_and_validate(model_name: str,
         print(f'Epoch: {epoch + 1}/{epochs}')
         train(model, train_data_loader, optimizer, loss, batch_size)
         validate(model, validation_data_loader, loss, batch_size)
-    save_model(path_to_saved_model, model.state_dict(), model_name, train_only_last_layer)
+    save_model(path_to_saved_model, model, model_name, train_only_last_layer)
