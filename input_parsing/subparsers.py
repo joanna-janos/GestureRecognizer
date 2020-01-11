@@ -23,7 +23,7 @@ def find(subparsers):
 
     sub_parser.add_argument('--max_learning_rate',
                             type=float,
-                            default=1e-2,
+                            default=10,
                             required=False,
                             help='Maximum learning rate value used for search')
 
