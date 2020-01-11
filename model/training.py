@@ -6,6 +6,7 @@ from tqdm import tqdm
 from model.model_selector import get_model
 from model.utils.directory import create_not_existing_directory
 from model.utils.loss_optimizer import get_loss_and_optimizer
+from model.utils.tensorboard import setup_tensorboard, log_results
 
 
 def train(model: torch.nn.Module,
@@ -120,7 +121,8 @@ def train_and_validate(model_name: str,
                        path_to_saved_model: str,
                        batch_size: int,
                        train_only_last_layer: bool,
-                       learning_rate: float):
+                       learning_rate: float,
+                       path_tensorboard: str):
     """ Train and validate model and then save under `path_to_saved_model` directory
 
     Arguments
@@ -143,7 +145,10 @@ def train_and_validate(model_name: str,
         Value indicating part of model that were trained
     learning_rate : float
         Learning rate
+    path_tensorboard : str
+        Path where tensorboard results will be stored
     """
+    tensorboard_writer = setup_tensorboard(path_tensorboard, model_name, train_only_last_layer)
     model = get_model(model_name, train_only_last_layer, pretrained)
     loss, optimizer = get_loss_and_optimizer(model, learning_rate)
     best_accuracy = 0
@@ -151,6 +156,7 @@ def train_and_validate(model_name: str,
         print(f'Epoch: {epoch + 1}/{epochs}')
         accuracy_train, loss_train = train(model, train_data_loader, optimizer, loss, batch_size)
         accuracy_validation, loss_validation = validate(model, validation_data_loader, loss, batch_size)
+        log_results(tensorboard_writer, accuracy_train, loss_train, accuracy_validation, loss_validation, epoch)
         if accuracy_validation > best_accuracy:
             best_accuracy = accuracy_validation
             save_model(path_to_saved_model, model, model_name, train_only_last_layer, accuracy_validation)

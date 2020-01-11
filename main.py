@@ -18,4 +18,4 @@ if __name__ == "__main__":
     if args.task == 'train':
         training.train_and_validate(args.model_name, args.pretrained, train_data_loader, validation_data_loader,
                                     args.epochs, args.path_to_saved_model, args.batch_size, args.train_only_last_layer,
-                                    args.learning_rate)
+                                    args.learning_rate, args.path_tensorboard)
