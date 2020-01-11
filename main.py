@@ -13,7 +13,7 @@ if __name__ == "__main__":
     if args.task == 'find':
         lr_finder.find_optimal_learning_rate(args.model_name, args.pretrained, args.train_only_last_layer,
                                              train_data_loader, validation_data_loader, args.path_to_visualisations,
-                                             args.min_learning_rate, args.max_learning_rate)
+                                             args.min_learning_rate, args.max_learning_rate, args.num_iter, args.step_mode)
 
     if args.task == 'train':
         training.train_and_validate(args.model_name, args.pretrained, train_data_loader, validation_data_loader,

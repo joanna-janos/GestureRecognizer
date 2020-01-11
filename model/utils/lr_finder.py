@@ -12,7 +12,10 @@ def find_optimal_learning_rate(model_name: str,
                                validation_data_loader: torch.utils.data.DataLoader,
                                path_to_visualisations: str,
                                min_learning_rate: float,
-                               max_learning_rate: float):
+                               max_learning_rate: float,
+                               num_iter: int,
+                               step_mode: str
+                               ):
     """ Find learning rate based on Leslie Smith's approach
     and https://github.com/davidtvs/pytorch-lr-finder implementation.
 
@@ -34,6 +37,10 @@ def find_optimal_learning_rate(model_name: str,
         Minimum learning rate used for searching
     max_learning_rate : float
         Maximum learning rate used for searching
+    num_iter : int
+        Number of iterations after which test will be performed
+    step_mode : float
+        Mode to perform search
     """
     model = get_model(model_name, train_only_last_layer, pretrained)
     criterion, optimizer = get_loss_and_optimizer(model, min_learning_rate)
@@ -43,8 +50,8 @@ def find_optimal_learning_rate(model_name: str,
         train_loader=train_data_loader,
         val_loader=validation_data_loader,
         end_lr=max_learning_rate,
-        num_iter=5,
-        step_mode="exp")
+        num_iter=num_iter,
+        step_mode=step_mode)
     lr_finder.plot()
     # TODO: Save plot under `path_to_visualisations` directory
     lr_finder.reset()

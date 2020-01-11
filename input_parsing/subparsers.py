@@ -17,13 +17,13 @@ def find(subparsers):
 
     sub_parser.add_argument('--min_learning_rate',
                             type=float,
-                            default=0.001,
+                            default=1e-7,
                             required=False,
                             help='Minimum learning rate value used for search')
 
     sub_parser.add_argument('--max_learning_rate',
                             type=float,
-                            default=0.01,
+                            default=1e-2,
                             required=False,
                             help='Maximum learning rate value used for search')
 
