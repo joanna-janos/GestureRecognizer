@@ -18,5 +18,5 @@ def get_loss_and_optimizer(model: torch.nn.Module, learning_rate: float):
         Loss and optimizer
     """
     loss = torch.nn.CrossEntropyLoss()
-    optimizer = torch.optim.SGD(model.parameters(), lr=learning_rate)
+    optimizer = torch.optim.Adam(model.parameters(), lr=learning_rate)
     return loss, optimizer
