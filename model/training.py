@@ -5,6 +5,7 @@ from tqdm import tqdm
 
 from model.model_selector import get_model
 from model.utils.directory import create_not_existing_directory
+from model.utils.loss_optimizer import get_loss_and_optimizer
 
 
 def train(model: torch.nn.Module,
@@ -40,8 +41,11 @@ def train(model: torch.nn.Module,
         loss_value.backward()
         optimizer.step()
 
-    print(f'\tAccuracy: {correct / (len(data_loader) * batch_size)}')
-    print(f'\tLoss: {overall_loss / (len(data_loader) * batch_size)}')
+    accuracy_per_epoch = correct / (len(data_loader) * batch_size)
+    loss_per_epoch = overall_loss / (len(data_loader) * batch_size)
+    print(f'\tAccuracy: {accuracy_per_epoch}')
+    print(f'\tLoss: {loss_per_epoch}')
+    return accuracy_per_epoch, loss_per_epoch
 
 
 def validate(model: torch.nn.Module,
@@ -71,10 +75,11 @@ def validate(model: torch.nn.Module,
             correct += float(sum(output.argmax(dim=1) == y))
             loss_value = loss(output, y)
             overall_loss += loss_value
-    accuracy = correct / (len(data_loader) * batch_size)
-    print(f'\tAccuracy: {accuracy}')
-    print(f'\tLoss: {overall_loss / (len(data_loader) * batch_size)}')
-    return accuracy
+    accuracy_per_epoch = correct / (len(data_loader) * batch_size)
+    loss_per_epoch = overall_loss / (len(data_loader) * batch_size)
+    print(f'\tAccuracy: {accuracy_per_epoch}')
+    print(f'\tLoss: {loss_per_epoch}')
+    return accuracy_per_epoch, loss_per_epoch
 
 
 def save_model(path_to_saved_model: str,
@@ -108,18 +113,22 @@ def save_model(path_to_saved_model: str,
 
 
 def train_and_validate(model_name: str,
+                       pretrained: bool,
                        train_data_loader: torch.utils.data.DataLoader,
                        validation_data_loader: torch.utils.data.DataLoader,
                        epochs: int,
                        path_to_saved_model: str,
                        batch_size: int,
-                       train_only_last_layer: bool):
+                       train_only_last_layer: bool,
+                       learning_rate: float):
     """ Train and validate model and then save under `path_to_saved_model` directory
 
     Arguments
     ----------
     model_name : str
         Model name
+    pretrained : bool
+        True if model should be pretrained, False otherwise
     train_data_loader : torch.utils.data.DataLoader
         Data loader used for training
     validation_data_loader : torch.utils.data.DataLoader
@@ -132,15 +141,16 @@ def train_and_validate(model_name: str,
         Size of batch
     train_only_last_layer : bool
         Value indicating part of model that were trained
+    learning_rate : float
+        Learning rate
     """
-    model = get_model(model_name, train_only_last_layer)
-    loss = torch.nn.CrossEntropyLoss()
-    optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
+    model = get_model(model_name, train_only_last_layer, pretrained)
+    loss, optimizer = get_loss_and_optimizer(model, learning_rate)
     best_accuracy = 0
     for epoch in range(epochs):
         print(f'Epoch: {epoch + 1}/{epochs}')
-        train(model, train_data_loader, optimizer, loss, batch_size)
-        accuracy = validate(model, validation_data_loader, loss, batch_size)
-        if accuracy > best_accuracy:
-            best_accuracy = accuracy
-            save_model(path_to_saved_model, model, model_name, train_only_last_layer, accuracy)
+        accuracy_train, loss_train = train(model, train_data_loader, optimizer, loss, batch_size)
+        accuracy_validation, loss_validation = validate(model, validation_data_loader, loss, batch_size)
+        if accuracy_validation > best_accuracy:
+            best_accuracy = accuracy_validation
+            save_model(path_to_saved_model, model, model_name, train_only_last_layer, accuracy_validation)

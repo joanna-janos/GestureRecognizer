@@ -98,7 +98,7 @@ def _get_mobilenet(pretrained: bool,
 
 def get_model(model_name: str,
               train_only_last_layer: bool,
-              pretrained: bool = True,
+              pretrained: bool,
               output_classes_count: int = 8):
     """ Get model using name from torchvision.models
 
