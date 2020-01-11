@@ -11,13 +11,13 @@ def find(subparsers):
 
     sub_parser.add_argument('--path_to_visualisations',
                             type=str,
-                            default='visualisations_lr_finder/',
+                            default='results/visualisations_lr_finder/',
                             required=False,
                             help='Path where results of lr finder will be stored')
 
     sub_parser.add_argument('--min_learning_rate',
                             type=float,
-                            default=0.0001,
+                            default=0.001,
                             required=False,
                             help='Minimum learning rate value used for search')
 
@@ -53,13 +53,19 @@ def train(subparsers):
 
     sub_parser.add_argument('--path_to_saved_model',
                             type=str,
-                            default='trained_model/',
+                            default='results/trained_model/',
                             required=False,
                             help='Path where trained model will be stored')
 
+    sub_parser.add_argument('--path_tensorboard',
+                            type=str,
+                            default='results/tensorboard/',
+                            required=False,
+                            help='Path where tensorboard results will be stored')
+
     sub_parser.add_argument('--epochs',
                             type=int,
-                            default=10,
+                            default=4,
                             required=False,
                             help='Number of epochs')
 
