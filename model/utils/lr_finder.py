@@ -9,8 +9,6 @@ def find_optimal_learning_rate(model_name: str,
                                pretrained: bool,
                                train_only_last_layer: bool,
                                train_data_loader: torch.utils.data.DataLoader,
-                               validation_data_loader: torch.utils.data.DataLoader,
-                               path_to_visualisations: str,
                                min_learning_rate: float,
                                max_learning_rate: float,
                                num_iter: int,
@@ -29,10 +27,6 @@ def find_optimal_learning_rate(model_name: str,
         Value indicating part of model that were trained (filename will contain information about it)
     train_data_loader: torch.utils.data.DataLoader
         Data loader used for training
-    validation_data_loader: torch.utils.data.DataLoader
-        Data loader used for validation
-    path_to_visualisations : str
-        Path where results of lr finder will be stored
     min_learning_rate : float
         Minimum learning rate used for searching
     max_learning_rate : float
@@ -44,14 +38,11 @@ def find_optimal_learning_rate(model_name: str,
     """
     model = get_model(model_name, train_only_last_layer, pretrained)
     criterion, optimizer = get_loss_and_optimizer(model, min_learning_rate)
-
     lr_finder = LRFinder(model, optimizer, criterion)
     lr_finder.range_test(
         train_loader=train_data_loader,
-        val_loader=validation_data_loader,
         end_lr=max_learning_rate,
         num_iter=num_iter,
         step_mode=step_mode)
     lr_finder.plot()
-    # TODO: Save plot under `path_to_visualisations` directory
     lr_finder.reset()

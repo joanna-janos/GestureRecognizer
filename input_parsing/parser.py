@@ -15,7 +15,7 @@ def parse_arguments():
 
     parser.add_argument('--batch_size',
                         type=int,
-                        default=64,
+                        default=8,
                         required=False,
                         help='Size of batch')
 
@@ -27,14 +27,14 @@ def parse_arguments():
                         help='Model name. The only available are: MnasNet, SqueezeNet and MobileNetV2.')
 
     parser.add_argument('--pretrained',
-                        type=bool,
                         default=True,
+                        action="store_false",
                         required=False,
                         help='True if model should be pretrained, False otherwise')
 
     parser.add_argument('--train_only_last_layer',
-                        type=bool,
                         default=True,
+                        action="store_false",
                         required=False,
                         help='True if pretrained model should have only last layer learnable,'
                              'False if all weights should be adjusted during training')

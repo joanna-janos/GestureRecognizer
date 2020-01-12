@@ -9,33 +9,27 @@ def find(subparsers):
         help="Find neural network learning rate using Leslie Smith's LR finder.",
     )
 
-    sub_parser.add_argument('--path_to_visualisations',
-                            type=str,
-                            default='results/visualisations_lr_finder/',
-                            required=False,
-                            help='Path where results of lr finder will be stored')
-
     sub_parser.add_argument('--min_learning_rate',
                             type=float,
-                            default=1e-7,
+                            default=1e-5,
                             required=False,
                             help='Minimum learning rate value used for search')
 
     sub_parser.add_argument('--max_learning_rate',
                             type=float,
-                            default=10,
+                            default=1,
                             required=False,
                             help='Maximum learning rate value used for search')
 
     sub_parser.add_argument('--num_iter',
                             type=int,
-                            default=100,
+                            default=200,
                             required=False,
                             help='Number of iterations after which test will be performed')
 
     sub_parser.add_argument('--step_mode',
                             type=str,
-                            default='exp',
+                            default='linear',
                             choices=('linear', 'exp'),
                             required=False,
                             help="Mode to perform search. 'linear' stands for original Leslie's (longer),"
@@ -65,7 +59,7 @@ def train(subparsers):
 
     sub_parser.add_argument('--epochs',
                             type=int,
-                            default=4,
+                            default=7,
                             required=False,
                             help='Number of epochs')
 
