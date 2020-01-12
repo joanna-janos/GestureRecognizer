@@ -152,6 +152,8 @@ def train_and_validate(model_name: str,
     model = get_model(model_name, train_only_last_layer, pretrained)
     loss, optimizer = get_loss_and_optimizer(model, learning_rate)
     best_accuracy = 0
+    max_epochs_without_improvement = 5
+    epochs_without_improvement = 0
     for epoch in range(epochs):
         print(f'Epoch: {epoch + 1}/{epochs}')
         accuracy_train, loss_train = train(model, train_data_loader, optimizer, loss, batch_size)
@@ -160,3 +162,9 @@ def train_and_validate(model_name: str,
         if accuracy_validation > best_accuracy:
             best_accuracy = accuracy_validation
             save_model(path_to_saved_model, model, model_name, train_only_last_layer, accuracy_validation)
+            epochs_without_improvement = 0
+        else:
+            epochs_without_improvement += 1
+            if epochs_without_improvement == max_epochs_without_improvement:
+                print(
+                    f'Finish training due to not improving accuracy on validation dataset for {max_epochs_without_improvement} epochs')
