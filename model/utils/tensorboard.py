@@ -3,11 +3,11 @@ from torch.utils.tensorboard import SummaryWriter
 from model.utils.directory import create_not_existing_directory
 
 
-def setup_tensorboard(path_tensorboard, model_name, train_only_last_layer):
-    if train_only_last_layer:
-        path_to_results_wth_filename = path_tensorboard + model_name + '_trained_only_last_layer'
+def setup_tensorboard(path_tensorboard, model_name, pretrained):
+    if pretrained:
+        path_to_results_wth_filename = path_tensorboard + model_name + '_pretrained'
     else:
-        path_to_results_wth_filename = path_tensorboard + model_name + '_trained_everything'
+        path_to_results_wth_filename = path_tensorboard + model_name + '_not_pretrained'
 
     create_not_existing_directory(path_tensorboard)
     return SummaryWriter(path_to_results_wth_filename)

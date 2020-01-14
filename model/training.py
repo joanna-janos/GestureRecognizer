@@ -12,6 +12,7 @@ from model.utils.tensorboard import setup_tensorboard, log_results
 def train(model: torch.nn.Module,
           data_loader: torch.utils.data.DataLoader,
           optimizer: torch.optim.Optimizer,
+          scheduler,
           loss: typing.Callable,
           batch_size: int):
     """ Train model on batched data using provided optimizer and loss
@@ -24,6 +25,8 @@ def train(model: torch.nn.Module,
         Data loader
     optimizer : torch.optim.Optimizer
         Optimizer used to update weights
+    scheduler :
+        Optimizer's scheduler
     loss : typing.Callable
         Criterion to calculate loss
     batch_size : int
@@ -41,6 +44,7 @@ def train(model: torch.nn.Module,
         overall_loss += loss_value
         loss_value.backward()
         optimizer.step()
+        scheduler.step()
 
     accuracy_per_epoch = correct / (len(data_loader) * batch_size)
     loss_per_epoch = overall_loss / (len(data_loader) * batch_size)
@@ -86,7 +90,7 @@ def validate(model: torch.nn.Module,
 def save_model(path_to_saved_model: str,
                model: torch.nn.Module,
                model_name: str,
-               train_only_last_layer: bool,
+               pretrained: bool,
                accuracy: float):
     """ Save trained model for future usage
 
@@ -98,19 +102,19 @@ def save_model(path_to_saved_model: str,
         Model to save
     model_name : str
         Model name (filename will contain it)
-    train_only_last_layer : bool
-        Value indicating part of model that were trained (filename will contain information about it)
+    pretrained : bool
+        True if model is pretrained, False otherwise
     accuracy : float
         Validation accuracy
     """
-    create_not_existing_directory(path_to_saved_model)
-    if train_only_last_layer:
-        path_to_saved_model_with_filename = path_to_saved_model + model_name + '_trained_only_last_layer_' + str(
-            accuracy) + '.pt'
+
+    if pretrained:
+        full_path_to_saved_model = path_to_saved_model + model_name + '/pretrained/'
     else:
-        path_to_saved_model_with_filename = path_to_saved_model + model_name + '_trained_everything_' + str(
-            accuracy) + '.pt'
-    torch.save(model.state_dict(), path_to_saved_model_with_filename)
+        full_path_to_saved_model = path_to_saved_model + model_name + '/not_pretrained/'
+
+    create_not_existing_directory(full_path_to_saved_model)
+    torch.save(model.state_dict(), full_path_to_saved_model + str(accuracy) + '.pt')
 
 
 def train_and_validate(model_name: str,
@@ -148,23 +152,17 @@ def train_and_validate(model_name: str,
     path_tensorboard : str
         Path where tensorboard results will be stored
     """
-    tensorboard_writer = setup_tensorboard(path_tensorboard, model_name, train_only_last_layer)
+    tensorboard_writer = setup_tensorboard(path_tensorboard, model_name, pretrained)
     model = get_model(model_name, train_only_last_layer, pretrained)
     loss, optimizer = get_loss_and_optimizer(model, learning_rate)
+    scheduler = torch.optim.lr_scheduler.CyclicLR(optimizer, base_lr=learning_rate, max_lr=learning_rate * 100,
+                                                  cycle_momentum=False)
     best_accuracy = 0
-    max_epochs_without_improvement = 5
-    epochs_without_improvement = 0
     for epoch in range(epochs):
         print(f'Epoch: {epoch + 1}/{epochs}')
-        accuracy_train, loss_train = train(model, train_data_loader, optimizer, loss, batch_size)
+        accuracy_train, loss_train = train(model, train_data_loader, optimizer, scheduler, loss, batch_size)
         accuracy_validation, loss_validation = validate(model, validation_data_loader, loss, batch_size)
         log_results(tensorboard_writer, accuracy_train, loss_train, accuracy_validation, loss_validation, epoch)
         if accuracy_validation > best_accuracy:
             best_accuracy = accuracy_validation
-            save_model(path_to_saved_model, model, model_name, train_only_last_layer, accuracy_validation)
-            epochs_without_improvement = 0
-        else:
-            epochs_without_improvement += 1
-            if epochs_without_improvement == max_epochs_without_improvement:
-                print(
-                    f'Finish training due to not improving accuracy on validation dataset for {max_epochs_without_improvement} epochs')
+            save_model(path_to_saved_model, model, model_name, pretrained, accuracy_validation)
