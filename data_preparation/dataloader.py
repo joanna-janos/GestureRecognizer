@@ -1,7 +1,8 @@
 import typing
 
+import torch
 from torch.utils.data import DataLoader
-from torchvision.transforms import Compose, ToTensor, ColorJitter, RandomHorizontalFlip, RandomVerticalFlip, Resize
+from torchvision.transforms import Compose, ToTensor, ColorJitter, RandomVerticalFlip, Resize, Lambda, RandomApply
 
 from data_preparation.dataset import GestureDataset
 
@@ -17,10 +18,10 @@ def _get_img_transformations():
     """
     return Compose([
         Resize((512, 256)),
-        ColorJitter(brightness=0.1, contrast=0.1, saturation=0.1),  # will be applied RANDOMLY
-        RandomHorizontalFlip(p=0.3),
-        RandomVerticalFlip(p=0.3),
-        ToTensor()
+        ColorJitter(brightness=0.1, contrast=0.1),  # will be applied RANDOMLY
+        RandomVerticalFlip(p=0.1),
+        ToTensor(),
+        RandomApply([Lambda(lambda x: x + torch.randn_like(x))], p=0.3)  # noise
     ])
 
 
