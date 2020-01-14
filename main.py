@@ -1,7 +1,11 @@
+import torch
+
 from data_preparation import data_supplier, files
 from input_parsing import parser
 from model import training
 from model.utils import lr_finder
+
+torch.manual_seed(0)
 
 if __name__ == "__main__":
     args = parser.parse_arguments()

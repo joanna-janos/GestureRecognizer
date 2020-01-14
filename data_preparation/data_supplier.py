@@ -7,7 +7,7 @@ from data_preparation.dataloader import create_dataloader
 
 def _split_into_train_and_validation(data: typing.List[str],
                                      rate: float = 0.2,
-                                     seed: int = 1024):
+                                     seed: int = 0):
     """ Split provided data into train and validation.
 
     Arguments
