@@ -37,7 +37,27 @@ def _get_mnasnet(pretrained: bool,
     model = models.mnasnet1_0(pretrained=pretrained)
     if train_only_last_layer:
         _turn_off_backpropagation(model)
-    model.classifier[1] = torch.nn.Linear(1280, output_classes_count)
+
+    if pretrained:
+        # unfreeze last layers
+        model.layers[13][0].layers[0].weight.requires_grad = True
+        model.layers[13][0].layers[1].weight.requires_grad = True
+        model.layers[13][0].layers[3].weight.requires_grad = True
+        model.layers[13][0].layers[4].weight.requires_grad = True
+        model.layers[13][0].layers[6].weight.requires_grad = True
+        model.layers[13][0].layers[7].weight.requires_grad = True
+
+        model.layers[14].weight.requires_grad = True
+        model.layers[15].weight.requires_grad = True
+
+    # change classifier to fit to current task
+    model.classifier = torch.nn.Sequential(
+        torch.nn.Linear(1280, 256),
+        torch.nn.Dropout(p=0.5),
+        torch.nn.ReLU(),
+        torch.nn.Linear(256, output_classes_count)
+    )
+
     return model
 
 
@@ -64,7 +84,7 @@ def _get_squeezenet(pretrained: bool,
     model = models.squeezenet1_0(pretrained=pretrained)
     if train_only_last_layer:
         _turn_off_backpropagation(model)
-    model.classifier._modules["1"] = torch.nn.Conv2d(512, output_classes_count, kernel_size=(1, 1))
+    model.classifier[1] = torch.nn.Conv2d(512, output_classes_count, kernel_size=(1, 1), stride=(1, 1))
     model.num_classes = output_classes_count
     return model
 
