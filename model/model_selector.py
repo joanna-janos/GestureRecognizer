@@ -84,6 +84,18 @@ def _get_squeezenet(pretrained: bool,
     model = models.squeezenet1_0(pretrained=pretrained)
     if train_only_last_layer:
         _turn_off_backpropagation(model)
+
+    if pretrained:
+        # unfreeze last layers
+        model.features[10].squeeze.weight.requires_grad = True
+        model.features[10].expand1x1.weight.requires_grad = True
+        model.features[10].expand3x3.weight.requires_grad = True
+
+        model.features[12].squeeze.weight.requires_grad = True
+        model.features[12].expand1x1.weight.requires_grad = True
+        model.features[12].expand3x3.weight.requires_grad = True
+
+    # change classifier to fit to current task
     model.classifier[1] = torch.nn.Conv2d(512, output_classes_count, kernel_size=(1, 1), stride=(1, 1))
     model.num_classes = output_classes_count
     return model
@@ -112,6 +124,21 @@ def _get_mobilenet(pretrained: bool,
     model = models.mobilenet_v2(pretrained=pretrained)
     if train_only_last_layer:
         _turn_off_backpropagation(model)
+
+    if pretrained:
+        # unfreeze last layers
+        model.features[17].conv[0][0].weight.requires_grad = True
+        model.features[17].conv[0][1].weight.requires_grad = True
+        model.features[17].conv[1][0].weight.requires_grad = True
+        model.features[17].conv[1][1].weight.requires_grad = True
+
+        model.features[17].conv[2].weight.requires_grad = True
+        model.features[17].conv[3].weight.requires_grad = True
+
+        model.features[18][0].weight.requires_grad = True
+        model.features[18][1].weight.requires_grad = True
+
+    # change classifier to fit to current task
     model.classifier[1] = torch.nn.Linear(model.last_channel, output_classes_count)
     return model
 
