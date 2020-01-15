@@ -6,6 +6,8 @@
 
 Dataset was taken from kaggle (link [here](https://www.kaggle.com/evernext10/hand-gesture-of-the-colombian-sign-language#0_men%20(10).JPG)) and contains images of hand gestures for numbers (0-5) and vowels (A, E, I, O, U). Based on [EDA](https://github.com/joanna-janos/GestureRecognizer/blob/master/data_analysis/EDA.ipynb) I chose a subset of gestures to recognize (1, 2, 3, 4, 5, A, O, U).
 
+:exclamation: Example images can be found on the bottom of [EDA](https://github.com/joanna-janos/GestureRecognizer/blob/master/data_analysis/EDA.ipynb).
+
 <h2> :hammer: Input preprocessing</h2>
 
 Images were resized to 512x256. During training they were vertically flipped, have randomly added noise and increased brightness and contrast.
