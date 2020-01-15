@@ -46,7 +46,7 @@ TRAINING
 
 As a max learning rate for cyclic lr scheduler I set lr found by lr finder divided by 10, as a min lr - found lr divided by 1000.
 
-1. <b>Lr finder</b>
+2. <b>Lr finder</b>
 
 Plots obtained using LRFinder are located under `results/visualisations_lr_finder/MODEL_NAME/` directory.
 You can find plots for pretrained and not pretrained models under specific directories. There are 2 files: plot obtained using lr finder with information about lr value and loss in the lowest point and zoomed area of interest.
@@ -55,7 +55,7 @@ Example (pretrained MnasNet):
 
 <a><img alt="lr finder result plot for pretrained MnasNet" src="results/visualisations_lr_finder/MnasNet/pretrained/the_lowest_point.png" width=50% height=50%></a>
 
-1. <b>Models</b>
+3. <b>Models</b>
 
 Trained models are saved in `results/model/MODEL_NAME/` directory. Only models better than previous will be saved. <br>
 Under directory containing model name you can find 2 directories: one contains saved models for pretrained model, second for not pretrained.
@@ -63,7 +63,7 @@ Validation accuracy is set as a filename.
 
 :exclamation: Only model with the highest score is uploaded to github.
 
-1. <b>Tensorboard</b>
+4. <b>Tensorboard</b>
 
 Run `tensorboard --logdir=results/tensorboard` and open `http://localhost:6006` in your browser to check train/validation accuracy/loss during all epochs
 
