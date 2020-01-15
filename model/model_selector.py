@@ -139,7 +139,13 @@ def _get_mobilenet(pretrained: bool,
         model.features[18][1].weight.requires_grad = True
 
     # change classifier to fit to current task
-    model.classifier[1] = torch.nn.Linear(model.last_channel, output_classes_count)
+
+    model.classifier = torch.nn.Sequential(
+        torch.nn.Linear(model.last_channel, 256),
+        torch.nn.Dropout(p=0.5),
+        torch.nn.ReLU(),
+        torch.nn.Linear(256, output_classes_count)
+    )
     return model
 
 
