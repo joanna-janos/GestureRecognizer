@@ -1,4 +1,10 @@
 <h1 align="center"><b><i>Gesture recognizer</i></b></h1>
+<p align=center>
+    <a><img alt="Model" src="https://img.shields.io/badge/Models-MnasNet, SqueezeNet, MobileNetV2-blue"></a>
+    <a><img alt="Hand Gesture of the Colombian sign language" src="https://img.shields.io/badge/Dataset-Hand Gesture of the Colombian sign language-blue"></a> <br>
+    <a><img alt="Python" src="https://img.shields.io/badge/python-3.8-blue.svg"></a>
+    <a><img alt="PyTorch" src="https://img.shields.io/badge/PyTorch-1.3.0-blue.svg"></a>
+</p>
 
 <h2> :file_folder: Dataset</h2>
 
