@@ -87,10 +87,6 @@ def _get_squeezenet(pretrained: bool,
 
     if pretrained:
         # unfreeze last layers
-        model.features[10].squeeze.weight.requires_grad = True
-        model.features[10].expand1x1.weight.requires_grad = True
-        model.features[10].expand3x3.weight.requires_grad = True
-
         model.features[12].squeeze.weight.requires_grad = True
         model.features[12].expand1x1.weight.requires_grad = True
         model.features[12].expand3x3.weight.requires_grad = True
@@ -139,7 +135,6 @@ def _get_mobilenet(pretrained: bool,
         model.features[18][1].weight.requires_grad = True
 
     # change classifier to fit to current task
-
     model.classifier = torch.nn.Sequential(
         torch.nn.Linear(model.last_channel, 256),
         torch.nn.Dropout(p=0.5),
