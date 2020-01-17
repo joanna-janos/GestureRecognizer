@@ -21,7 +21,7 @@ def parse_arguments():
 
     parser.add_argument('--model_name',
                         type=str,
-                        default='MnasNet',
+                        default='SqueezeNet',
                         required=False,
                         choices=('MnasNet', 'SqueezeNet', 'MobileNetV2'),
                         help='Model name. The only available are: MnasNet, SqueezeNet and MobileNetV2.')

@@ -125,7 +125,8 @@ def train_and_validate(model_name: str,
                        path_to_saved_model: str,
                        batch_size: int,
                        train_only_last_layer: bool,
-                       learning_rate: float,
+                       base_learning_rate: float,
+                       max_learning_rate: float,
                        path_tensorboard: str):
     """ Train and validate model and then save under `path_to_saved_model` directory
 
@@ -147,7 +148,9 @@ def train_and_validate(model_name: str,
         Size of batch
     train_only_last_layer : bool
         Value indicating part of model that were trained
-    learning_rate : float
+    base_learning_rate : float
+        Learning rate
+    max_learning_rate : float
         Learning rate
     path_tensorboard : str
         Path where tensorboard results will be stored
@@ -155,7 +158,7 @@ def train_and_validate(model_name: str,
     tensorboard_writer = setup_tensorboard(path_tensorboard, model_name, pretrained)
     model = get_model(model_name, train_only_last_layer, pretrained)
     loss, optimizer = get_loss_and_optimizer(model, learning_rate)
-    scheduler = torch.optim.lr_scheduler.CyclicLR(optimizer, base_lr=learning_rate, max_lr=learning_rate * 100,
+    scheduler = torch.optim.lr_scheduler.CyclicLR(optimizer, base_lr=base_learning_rate, max_lr=max_learning_rate,
                                                   cycle_momentum=False)
     best_accuracy = 0
     for epoch in range(epochs):

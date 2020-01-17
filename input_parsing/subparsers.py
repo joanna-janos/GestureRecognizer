@@ -11,7 +11,7 @@ def find(subparsers):
 
     sub_parser.add_argument('--min_learning_rate',
                             type=float,
-                            default=1e-5,
+                            default=1e-7,
                             required=False,
                             help='Minimum learning rate value used for search')
 
@@ -59,12 +59,18 @@ def train(subparsers):
 
     sub_parser.add_argument('--epochs',
                             type=int,
-                            default=7,
+                            default=50,
                             required=False,
                             help='Number of epochs')
 
-    sub_parser.add_argument('--learning_rate',
+    sub_parser.add_argument('--base_learning_rate',
                             type=float,
-                            default=0.0001,
+                            default=3.5e-4,
                             required=False,
-                            help='Learning rate value')
+                            help='Base learning rate value')
+
+    sub_parser.add_argument('--max_learning_rate',
+                            type=float,
+                            default=3.5e-3,
+                            required=False,
+                            help='Max learning rate value')
