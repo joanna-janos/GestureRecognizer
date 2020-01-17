@@ -157,7 +157,7 @@ def train_and_validate(model_name: str,
     """
     tensorboard_writer = setup_tensorboard(path_tensorboard, model_name, pretrained)
     model = get_model(model_name, train_only_last_layer, pretrained)
-    loss, optimizer = get_loss_and_optimizer(model, learning_rate)
+    loss, optimizer = get_loss_and_optimizer(model, base_learning_rate)
     scheduler = torch.optim.lr_scheduler.CyclicLR(optimizer, base_lr=base_learning_rate, max_lr=max_learning_rate,
                                                   cycle_momentum=False)
     best_accuracy = 0
