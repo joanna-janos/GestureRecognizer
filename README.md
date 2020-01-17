@@ -40,19 +40,20 @@ LR FINDER
 | ------------- | ------------- | ------------- | -------------------- | ---------------------| ---------|
 | MnasNet       | Yes           | 200           | 1e-7                 | 1                    | 4e-1     |
 | MnasNet       | No            | 200           | 1e-7                 | 1                    | 2.5e-1   |
-| SqueezeNet    | Yes           | 200           | 1e-7                 | 1                    | 6e-1     |
-| SqueezeNet    | No            | 200           | 1e-7                 | 1                    | 5e-1     |
+| SqueezeNet    | Yes           | 200           | 1e-7                 | 1                    | 3.3e-1   |
+| SqueezeNet    | No            | 200           | 1e-7                 | 1                    |          |
 
 TRAINING
 
 | Model name    | Pretrained    | Epochs trained| Max validation accuracy | Min lr set in cyclic lr scheduler   | Max lr set in cyclic lr scheduler |
 | ------------- | ------------- | ------------- | ----------------------- | ----------------------------------- | ----------------------------------|
 | MnasNet       | Yes           | 50            | 61.89%                  | 4e-4                                | 4e-2                              |
-| MnasNet       | No            |               |                         | 2.5e-4                              | 2.5e-2                            |
-| SqueezeNet    | Yes           |               |                         | 6e-4                                | 6e-2                              |
-| SqueezeNet    | No            |               |                         | 5e-4                                | 5e-2                              |
+| MnasNet       | No            | 30            | 13.73%                  | 2.5e-4                              | 2.5e-2                            |
+| SqueezeNet    | Yes           | 50            | 69.67%                  | 3.5e-4                              | 3.5e-3                            |
+| SqueezeNet    | No            |               |                         |                                     |                                   |
 
-As a max learning rate for cyclic lr scheduler I set lr found by lr finder divided by 10, as a min lr - found lr divided by 1000.
+MnasNet: As a max learning rate for cyclic lr scheduler I set lr found by lr finder divided by 10, as a min lr - found lr divided by 1000.
+In SqueezeNet I didn't take 3.3e-1 (found lr) but 3.5e-1 because it gives me better results. As a min I have divided it by 1000, as a max - by 100.
 
 2. <b>Lr finder</b>
 
