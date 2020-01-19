@@ -14,7 +14,8 @@ def train(model: torch.nn.Module,
           optimizer: torch.optim.Optimizer,
           scheduler,
           loss: typing.Callable,
-          batch_size: int):
+          batch_size: int
+          ):
     """ Train model on batched data using provided optimizer and loss
 
     Arguments
@@ -56,7 +57,8 @@ def train(model: torch.nn.Module,
 def validate(model: torch.nn.Module,
              data_loader: torch.utils.data.DataLoader,
              loss: typing.Callable,
-             batch_size: int):
+             batch_size: int
+             ):
     """ Validate model on batched data
 
     Arguments
@@ -91,7 +93,8 @@ def save_model(path_to_saved_model: str,
                model: torch.nn.Module,
                model_name: str,
                pretrained: bool,
-               accuracy: float):
+               accuracy: float
+               ):
     """ Save trained model for future usage
 
     Arguments
@@ -127,7 +130,8 @@ def train_and_validate(model_name: str,
                        train_only_last_layer: bool,
                        base_learning_rate: float,
                        max_learning_rate: float,
-                       path_tensorboard: str):
+                       path_tensorboard: str
+                       ):
     """ Train and validate model and then save under `path_to_saved_model` directory
 
     Arguments

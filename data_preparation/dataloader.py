@@ -28,7 +28,8 @@ def _get_img_transformations():
 def create_dataloader(x: typing.List[str],
                       y: typing.List[str],
                       batch_size: int,
-                      shuffle: bool = True):
+                      shuffle: bool = True
+                      ):
     """ Create data loader for given data and labels that returns given number of samples as one batch.
 
     Arguments

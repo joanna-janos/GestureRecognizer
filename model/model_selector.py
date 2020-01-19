@@ -16,7 +16,8 @@ def _turn_off_backpropagation(model: torch.nn.Module):
 
 def _get_mnasnet(pretrained: bool,
                  train_only_last_layer: bool,
-                 output_classes_count: int):
+                 output_classes_count: int
+                 ):
     """ Get MnasNet and adjust to fit gesture recognition task
 
     Arguments
@@ -63,7 +64,8 @@ def _get_mnasnet(pretrained: bool,
 
 def _get_squeezenet(pretrained: bool,
                     train_only_last_layer: bool,
-                    output_classes_count: int):
+                    output_classes_count: int
+                    ):
     """ Get SqueezeNet and adjust to fit gesture recognition task
 
     Arguments
@@ -99,7 +101,8 @@ def _get_squeezenet(pretrained: bool,
 
 def _get_mobilenet(pretrained: bool,
                    train_only_last_layer: bool,
-                   output_classes_count: int):
+                   output_classes_count: int
+                   ):
     """ Get MobileNetV2 and adjust to fit gesture recognition task
 
     Arguments
@@ -142,7 +145,8 @@ def _get_mobilenet(pretrained: bool,
 def get_model(model_name: str,
               train_only_last_layer: bool,
               pretrained: bool,
-              output_classes_count: int = 8):
+              output_classes_count: int = 8
+              ):
     """ Get model using name from torchvision.models
 
     Arguments

@@ -1,7 +1,9 @@
 import torch
 
 
-def get_loss_and_optimizer(model: torch.nn.Module, learning_rate: float):
+def get_loss_and_optimizer(model: torch.nn.Module,
+                           learning_rate: float
+                           ):
     """ Get loss and optimizer used for lr finder and training.
     Util created to have the same criterion and optimizer during both tasks.
 

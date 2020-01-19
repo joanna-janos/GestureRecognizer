@@ -2,10 +2,12 @@ import pathlib
 
 
 def create_not_existing_directory(directory: str):
-    """
-    Create not existing directory.
+    """ Create not existing directory.
     If directory exists, do nothing.
-    :param directory: str
+
+    Arguments
+    ----------
+    directory: str
         directory to create
     """
     p = pathlib.Path(directory)
