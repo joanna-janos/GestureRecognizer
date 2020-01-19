@@ -123,11 +123,6 @@ def _get_mobilenet(pretrained: bool,
 
     if pretrained:
         # unfreeze last layers
-        model.features[17].conv[0][0].weight.requires_grad = True
-        model.features[17].conv[0][1].weight.requires_grad = True
-        model.features[17].conv[1][0].weight.requires_grad = True
-        model.features[17].conv[1][1].weight.requires_grad = True
-
         model.features[17].conv[2].weight.requires_grad = True
         model.features[17].conv[3].weight.requires_grad = True
 
