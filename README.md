@@ -50,7 +50,7 @@ TRAINING
 | ------------- | ------------- | ------------- | ----------------------- | ----------------------------------- | ----------------------------------|
 | MnasNet       | Yes           | 50            | 61.89%                  | 4e-4                                | 4e-2                              |
 | MnasNet       | No            | 30            | 13.73%                  | 2.5e-4                              | 2.5e-2                            |
-| SqueezeNet    | Yes           | 50            | 69.67%                  | 3.5e-4                              | 3.5e-3                            |
+| SqueezeNet    | Yes           | 100           | 70.08%                  | 3.5e-4                              | 3.5e-3                            |
 | MobileNetV2   | Yes           | 80            | 65.36%                  | 5e-4                                | 5e-3                              |
 
 MnasNet: As a max learning rate for cyclic lr scheduler I set lr found by lr finder divided by 10, as a min lr - found lr divided by 1000.
