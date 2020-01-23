@@ -3,7 +3,8 @@ import typing
 
 
 def get_paths_and_gestures(data_directory: str,
-                           gestures: typing.Tuple[str] = ('1', '2', '3', '4', '5', 'A', 'O', 'U')):
+                           gestures: typing.Tuple[str] = ('1', '2', '3', '4', '5', 'A', 'O', 'U')
+                           ):
     """ Get paths to all images representing gestures and corresponding gesture name
     under given directory.
 

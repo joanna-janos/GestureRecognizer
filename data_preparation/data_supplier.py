@@ -7,7 +7,8 @@ from data_preparation.dataloader import create_dataloader
 
 def _split_into_train_and_validation(data: typing.List[str],
                                      rate: float = 0.2,
-                                     seed: int = 1024):
+                                     seed: int = 0
+                                     ):
     """ Split provided data into train and validation.
 
     Arguments
@@ -30,7 +31,9 @@ def _split_into_train_and_validation(data: typing.List[str],
     return x_train, x_validation, y_train, y_validation
 
 
-def prepare_data(data: typing.List[str], batch_size: int):
+def prepare_data(data: typing.List[str],
+                 batch_size: int
+                 ):
     """ Prepare data for training.
     Data (path to image - label) will be split into train and validation
     and then corresponding data loaders returning image-label will be created.

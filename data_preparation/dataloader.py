@@ -1,7 +1,8 @@
 import typing
 
+import torch
 from torch.utils.data import DataLoader
-from torchvision.transforms import Compose, ToTensor, ColorJitter, RandomHorizontalFlip, RandomVerticalFlip
+from torchvision.transforms import Compose, ToTensor, ColorJitter, RandomVerticalFlip, Resize, Lambda, RandomApply
 
 from data_preparation.dataset import GestureDataset
 
@@ -16,17 +17,19 @@ def _get_img_transformations():
         composition of transformations
     """
     return Compose([
-        ColorJitter(brightness=0.1, contrast=0.1, saturation=0.1),  # will be applied RANDOMLY
-        RandomHorizontalFlip(p=0.3),
-        RandomVerticalFlip(p=0.3),
-        ToTensor()
+        Resize((512, 256)),
+        ColorJitter(brightness=0.1, contrast=0.1),  # will be applied RANDOMLY
+        RandomVerticalFlip(p=0.1),
+        ToTensor(),
+        RandomApply([Lambda(lambda x: x + torch.randn_like(x))], p=0.3)  # noise
     ])
 
 
 def create_dataloader(x: typing.List[str],
                       y: typing.List[str],
                       batch_size: int,
-                      shuffle: bool = True):
+                      shuffle: bool = True
+                      ):
     """ Create data loader for given data and labels that returns given number of samples as one batch.
 
     Arguments

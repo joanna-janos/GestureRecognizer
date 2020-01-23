@@ -1,8 +1,12 @@
 import typing
 
 from PIL import Image
+from PIL import ImageFile
+
+ImageFile.LOAD_TRUNCATED_IMAGES = True
+
 from torch.utils.data import Dataset
-from torchvision.transforms import ToTensor
+from torchvision.transforms import Compose, Resize, ToTensor
 
 
 class GestureDataset(Dataset):
@@ -26,7 +30,7 @@ class GestureDataset(Dataset):
     def __init__(self,
                  paths: typing.List[str],
                  gestures: typing.List[str],
-                 transform=ToTensor()):
+                 transform=Compose([Resize((512, 256)), ToTensor()])):
         self.paths = paths
         self.gestures = gestures
         self.transform = transform
@@ -36,4 +40,22 @@ class GestureDataset(Dataset):
 
     def __getitem__(self, idx: int):
         img = Image.open(self.paths[idx])
-        return self.transform(img), self.gestures[idx]
+        return self.transform(img), _gesture_name_to_class_label(self.gestures[idx])
+
+
+def _gesture_name_to_class_label(gesture_name: str):
+    """ Get index of gesture name.
+    Helpful while training a model (classification).
+
+    Arguments
+    ----------
+    gesture_name : str
+        Name of a gesture
+
+    Returns
+    -------
+    int
+        Index of gesture
+    """
+    gestures = ('1', '2', '3', '4', '5', 'A', 'O', 'U')
+    return gestures.index(gesture_name)
