@@ -14,6 +14,9 @@ Dataset was taken from kaggle (link [here](https://www.kaggle.com/evernext10/han
 
 :exclamation: Example images can be found on the bottom of [EDA](https://github.com/joanna-janos/GestureRecognizer/blob/master/data_analysis/EDA.ipynb).
 
+<h2> Environment </h2>
+Create conda environment from yml file: `conda env create -f environment/environment.yml`
+
 <h2> :hammer: Input preprocessing</h2>
 
 Images were resized to 512x256. During training they were vertically flipped, have randomly added noise and increased brightness and contrast.
