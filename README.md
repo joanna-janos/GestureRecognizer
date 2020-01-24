@@ -73,7 +73,18 @@ Validation accuracy is set as a filename.
 
 :exclamation: Only model with the highest score is uploaded to github.
 
-4. <b>Tensorboard</b>
+4. <b>Size</b>
+
+I have to take into account the size of the model, because it should be small for mobile phones.
+
+| Model name    | Pretrained    | Size (MB) |
+| ------------- | ------------- | --------- |
+| MnasNet       | Yes           | 13.9      | 
+| MnasNet       | No            | 13.9      | 
+| SqueezeNet    | Yes           | 3         | 
+| MobileNetV2   | Yes           | 10.4      |
+
+5. <b>Tensorboard</b>
 
 Run `tensorboard --logdir=results/tensorboard` and open `http://localhost:6006` in your browser to check train/validation accuracy/loss during all epochs
 
