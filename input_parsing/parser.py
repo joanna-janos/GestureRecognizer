@@ -1,6 +1,6 @@
 import argparse
 
-from input_parsing.subparsers import find, train
+from input_parsing.subparsers import find_lr, train
 
 
 def parse_arguments():
@@ -40,7 +40,7 @@ def parse_arguments():
                              'False if all weights should be adjusted during training')
 
     subparsers = parser.add_subparsers(help="Task to perform:", dest="task")
-    find(subparsers)
+    find_lr(subparsers)
     train(subparsers)
 
     return parser.parse_args()

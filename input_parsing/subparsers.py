@@ -1,11 +1,11 @@
 import argparse
 
 
-def find(subparsers):
-    """`find` sub command parser."""
+def find_lr(subparsers):
+    """`find_lr` sub command parser."""
 
     sub_parser = subparsers.add_parser(
-        "find",
+        "find_lr",
         help="Find neural network learning rate using Leslie Smith's LR finder.",
     )
 

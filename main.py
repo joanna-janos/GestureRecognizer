@@ -14,7 +14,7 @@ if __name__ == "__main__":
 
     print(f'Chosen task: {args.task}')
 
-    if args.task == 'find':
+    if args.task == 'find_lr':
         lr_finder.find_optimal_learning_rate(args.model_name, args.pretrained, args.train_only_last_layer,
                                              train_data_loader, args.min_learning_rate, args.max_learning_rate,
                                              args.num_iter, args.step_mode)
