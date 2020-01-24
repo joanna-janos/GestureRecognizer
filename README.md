@@ -15,7 +15,9 @@ Dataset was taken from kaggle (link [here](https://www.kaggle.com/evernext10/han
 :exclamation: Example images can be found on the bottom of [EDA](https://github.com/joanna-janos/GestureRecognizer/blob/master/data_analysis/EDA.ipynb).
 
 <h2> Environment </h2>
-Create conda environment from yml file: `conda env create -f environment/environment.yml`
+
+Create conda environment from yml file: 
+`conda env create -f environment/environment.yml`
 
 <h2> :hammer: Input preprocessing</h2>
 
