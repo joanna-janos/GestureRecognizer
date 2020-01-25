@@ -14,10 +14,12 @@ Dataset was taken from kaggle (link [here](https://www.kaggle.com/evernext10/han
 
 :exclamation: Example images can be found on the bottom of [EDA](https://github.com/joanna-janos/GestureRecognizer/blob/master/data_analysis/EDA.ipynb).
 
-<h2> Environment </h2>
+<h2> :earth_americas: Conda environment </h2>
 
-Create conda environment from yml file: 
-`conda env create -f environment/environment.yml`
+Create conda environment from yml file: <br>
+`conda env create -f environment/environment.yml` <br>
+then activate using command: <br>
+`conda activate gesture_recognizer`
 
 <h2> :hammer: Input preprocessing</h2>
 
