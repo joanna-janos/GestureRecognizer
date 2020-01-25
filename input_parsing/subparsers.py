@@ -1,11 +1,11 @@
 import argparse
 
 
-def find(subparsers):
-    """`find` sub command parser."""
+def find_lr(subparsers):
+    """`find_lr` sub command parser."""
 
     sub_parser = subparsers.add_parser(
-        "find",
+        "find_lr",
         help="Find neural network learning rate using Leslie Smith's LR finder.",
     )
 
@@ -34,6 +34,15 @@ def find(subparsers):
                             required=False,
                             help="Mode to perform search. 'linear' stands for original Leslie's (longer),"
                                  " while 'exp' for fastai's")
+
+
+def find_mean_std(subparsers):
+    """`find_mean_std` sub command parser."""
+
+    subparsers.add_parser(
+        "find_mean_std",
+        help="Find mean and std to normalize data",
+    )
 
 
 def train(subparsers):

@@ -29,15 +29,16 @@ More information about used models and why I chose them can be found [here](http
 
 <h2> :eyes: Tasks</h2>
 
-You can run app for 2 tasks:
-1. `find` - find optimal learning rate for model (should be used before training to set it up correctly); run: `python main.py find`
-2. `train` - conduct training of model; run: `python main.py train`
+You can run app for 3 tasks:
+1. `find_mean_std` - find mean and std values which should be used to normalize data; run: `python main.py find_mean_std`
+2. `find_lr` - find optimal learning rate for model (should be used before training to set it up correctly); run: `python main.py find_lr`
+3. `train` - conduct training of model; run: `python main.py train`
 
 :question: If you need any help regarding additional arguments available to provide by user run `python main.py --help`
 
 <h2> :boom: Results</h2>
 
-1. <b>Overall results for both tasks</b>
+1. <b>Overall results for `find_lr` and `train` tasks</b>
 
 LR FINDER
 
@@ -57,6 +58,8 @@ TRAINING
 | MnasNet       | No            | 30            | 13.73%                  | 2.5e-4                              | 2.5e-2                            |
 | SqueezeNet    | Yes           | 100           | 70.08%                  | 3.5e-4                              | 3.5e-3                            |
 | MobileNetV2   | Yes           | 80            | 65.36%                  | 5e-4                                | 5e-3                              |
+
+:exclamation: In above table, results are for not normalized data (normalization was added later).
 
 MnasNet: As a max learning rate for cyclic lr scheduler I set lr found by lr finder divided by 10, as a min lr - found lr divided by 1000.
 In SqueezeNet I didn't take 3.3e-1 (found lr) but 3.5e-1 because it gives me better results. As a min I have divided it by 1000, as a max - by 100. Same for MobileNetV2 was applied.
