@@ -5,15 +5,15 @@ from model.model_selector import get_model
 from model.utils.loss_optimizer import get_loss_and_optimizer
 
 
-def find_optimal_learning_rate(model_name: str,
-                               pretrained: bool,
-                               train_only_last_layer: bool,
-                               train_data_loader: torch.utils.data.DataLoader,
-                               min_learning_rate: float,
-                               max_learning_rate: float,
-                               num_iter: int,
-                               step_mode: str
-                               ):
+def find(model_name: str,
+         pretrained: bool,
+         train_only_last_layer: bool,
+         train_data_loader: torch.utils.data.DataLoader,
+         min_learning_rate: float,
+         max_learning_rate: float,
+         num_iter: int,
+         step_mode: str
+         ):
     """ Find learning rate based on Leslie Smith's approach
     and https://github.com/davidtvs/pytorch-lr-finder implementation.
 

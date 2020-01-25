@@ -18,9 +18,9 @@ if __name__ == "__main__":
         mean_std_finder.find(train_data_loader)
 
     elif args.task == 'find_lr':
-        lr_finder.find_optimal_learning_rate(args.model_name, args.pretrained, args.train_only_last_layer,
-                                             train_data_loader, args.min_learning_rate, args.max_learning_rate,
-                                             args.num_iter, args.step_mode)
+        lr_finder.find(args.model_name, args.pretrained, args.train_only_last_layer,
+                       train_data_loader, args.min_learning_rate, args.max_learning_rate,
+                       args.num_iter, args.step_mode)
     elif args.task == 'train':
         training.train_and_validate(args.model_name, args.pretrained, train_data_loader, validation_data_loader,
                                     args.epochs, args.path_to_saved_model, args.batch_size, args.train_only_last_layer,
