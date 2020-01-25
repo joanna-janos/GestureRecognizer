@@ -54,6 +54,8 @@ TRAINING
 | SqueezeNet    | Yes           | 100           | 70.08%                  | 3.5e-4                              | 3.5e-3                            |
 | MobileNetV2   | Yes           | 80            | 65.36%                  | 5e-4                                | 5e-3                              |
 
+:exclamation: In above table, results are for not normalized data (normalization was added later).
+
 MnasNet: As a max learning rate for cyclic lr scheduler I set lr found by lr finder divided by 10, as a min lr - found lr divided by 1000.
 In SqueezeNet I didn't take 3.3e-1 (found lr) but 3.5e-1 because it gives me better results. As a min I have divided it by 1000, as a max - by 100. Same for MobileNetV2 was applied.
 
