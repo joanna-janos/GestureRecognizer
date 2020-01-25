@@ -14,13 +14,6 @@ Dataset was taken from kaggle (link [here](https://www.kaggle.com/evernext10/han
 
 :exclamation: Example images can be found on the bottom of [EDA](https://github.com/joanna-janos/GestureRecognizer/blob/master/data_analysis/EDA.ipynb).
 
-<h2> :earth_americas: Conda environment </h2>
-
-Create conda environment from yml file: <br>
-`conda env create -f environment/environment.yml` <br>
-then activate using command: <br>
-`conda activate gesture_recognizer`
-
 <h2> :hammer: Input preprocessing</h2>
 
 Images were resized to 512x256. During training they were vertically flipped, have randomly added noise and increased brightness and contrast.
@@ -28,6 +21,13 @@ Images were resized to 512x256. During training they were vertically flipped, ha
 <h2> :gear: Model</h2>
 
 More information about used models and why I chose them can be found [here](https://github.com/joanna-janos/GestureRecognizer/blob/master/model/MODEL_SELECTION.md)
+
+<h2> :earth_americas: Conda environment </h2>
+
+Create conda environment from yml file: <br>
+`conda env create -f environment/environment.yml` <br>
+then activate using command: <br>
+`conda activate gesture_recognizer`
 
 <h2> :eyes: Tasks</h2>
 
