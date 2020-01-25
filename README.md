@@ -24,15 +24,16 @@ More information about used models and why I chose them can be found [here](http
 
 <h2> :eyes: Tasks</h2>
 
-You can run app for 2 tasks:
-1. `find` - find optimal learning rate for model (should be used before training to set it up correctly); run: `python main.py find`
-2. `train` - conduct training of model; run: `python main.py train`
+You can run app for 3 tasks:
+1. `find_mean_std` - find mean and std values which should be used to normalize data; run: `python main.py find_mean_std`
+2. `find_lr` - find optimal learning rate for model (should be used before training to set it up correctly); run: `python main.py find_lr`
+3. `train` - conduct training of model; run: `python main.py train`
 
 :question: If you need any help regarding additional arguments available to provide by user run `python main.py --help`
 
 <h2> :boom: Results</h2>
 
-1. <b>Overall results for both tasks</b>
+1. <b>Overall results for `find_lr` and `train` tasks</b>
 
 LR FINDER
 
