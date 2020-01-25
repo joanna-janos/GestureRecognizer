@@ -1,6 +1,6 @@
 import argparse
 
-from input_parsing.subparsers import find_lr, train
+from input_parsing.subparsers import find_lr, train, find_mean_std
 
 
 def parse_arguments():
@@ -39,8 +39,27 @@ def parse_arguments():
                         help='True if pretrained model should have only last layer learnable,'
                              'False if all weights should be adjusted during training')
 
+    parser.add_argument('--means',
+                        nargs="+",
+                        type=float,
+                        default=[0.0, 0.0, 0.0],
+                        required=False,
+                        help='Mean values used to data normalization, '
+                             'found by find_mean_std task: [0.7315, 0.6840, 0.6410], '
+                             'default: no normalization')
+
+    parser.add_argument('--stds',
+                        nargs="+",
+                        type=float,
+                        default=[1.0, 1.0, 1.0],
+                        required=False,
+                        help='Std values used to data normalization, '
+                             'found by find_mean_std task: [0.4252, 0.4546, 0.4789], '
+                             'default: no normalization')
+
     subparsers = parser.add_subparsers(help="Task to perform:", dest="task")
     find_lr(subparsers)
     train(subparsers)
+    find_mean_std(subparsers)
 
     return parser.parse_args()

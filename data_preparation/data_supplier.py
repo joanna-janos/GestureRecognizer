@@ -32,7 +32,9 @@ def _split_into_train_and_validation(data: typing.List[str],
 
 
 def prepare_data(data: typing.List[str],
-                 batch_size: int
+                 batch_size: int,
+                 means: typing.List[float],
+                 stds: typing.List[float]
                  ):
     """ Prepare data for training.
     Data (path to image - label) will be split into train and validation
@@ -44,6 +46,10 @@ def prepare_data(data: typing.List[str],
         Train and validation data
     batch_size : int
         Size of batch
+    means : typing.Tuple
+        Mean values for data normalization
+    stds : typing.Tuple
+        Std values for data normalization
 
     Returns
     -------
@@ -51,6 +57,6 @@ def prepare_data(data: typing.List[str],
         train and validation data loaders
     """
     x_train, x_validation, y_train, y_validation = _split_into_train_and_validation(data)
-    train_dataloader = create_dataloader(x_train, y_train, batch_size)
-    validation_dataloader = create_dataloader(x_validation, y_validation, batch_size, False)
+    train_dataloader = create_dataloader(x_train, y_train, batch_size, True, means, stds)
+    validation_dataloader = create_dataloader(x_validation, y_validation, batch_size, False, means, stds)
     return train_dataloader, validation_dataloader

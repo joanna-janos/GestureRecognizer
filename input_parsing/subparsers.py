@@ -36,6 +36,15 @@ def find_lr(subparsers):
                                  " while 'exp' for fastai's")
 
 
+def find_mean_std(subparsers):
+    """`find_mean_std` sub command parser."""
+
+    subparsers.add_parser(
+        "find_mean_std",
+        help="Find mean and std to normalize data",
+    )
+
+
 def train(subparsers):
     """`train` sub command parser."""
 
