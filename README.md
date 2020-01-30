@@ -2,8 +2,8 @@
 <p align=center>
     <a><img alt="Model" src="https://img.shields.io/badge/Models-MnasNet, SqueezeNet, MobileNetV2-blue"></a>
     <a><img alt="Hand Gesture of the Colombian sign language" src="https://img.shields.io/badge/Dataset-Hand Gesture of the Colombian sign language-blue"></a> <br>
-    <a><img alt="Python" src="https://img.shields.io/badge/python-3.8-blue.svg"></a>
-    <a><img alt="PyTorch" src="https://img.shields.io/badge/PyTorch-1.3.0-blue.svg"></a>
+    <a><img alt="Python" src="https://img.shields.io/badge/python-3.7.6-blue.svg"></a>
+    <a><img alt="PyTorch" src="https://img.shields.io/badge/PyTorch-1.3.1-blue.svg"></a>
 </p>
 
 <h2> :file_folder: Dataset</h2>
@@ -70,7 +70,7 @@ In SqueezeNet I didn't take 3.3e-1 (found lr) but 3.5e-1 because it gives me bet
 
 <h4> WITH NORMALIZATION </h4>
 
-1. Hand gesture recognizer <br>
+1. Hand Gesture of the Colombian sign language dataset <br>
 
 Mean and std was obtained using `find_mean_std` task based on <b>Hand Gesture of the Colombian sign language dataset</b>. <br>
 Mean: [0.7315, 0.6840, 0.6410] <br>
@@ -92,6 +92,29 @@ TRAINING
 | MnasNet       | Yes           | 100           | 80.74%                  | 3.3e-3                              | 3.5e-2                            |
 | SqueezeNet    | Yes           | 100           | 79.09%                  | 5e-3                                | 5e-2                              |
 | MobileNetV2   | Yes           | 100           | 70.29%                  | 3.5e-4                              | 3.5e-3                            |
+
+2. ImageNet dataset <br>
+
+Mean and std for <b>ImageNet dataset</b>. <br>
+Mean: [0.485, 0.456, 0.406] <br>
+Std: [0.229, 0.224, 0.225]
+
+LR FINDER
+
+| Model name    | Pretrained    | Iterations    | Min lr set in finder | Max lr set in finder | Found lr |
+| ------------- | ------------- | ------------- | -------------------- | ---------------------| ---------|
+| MnasNet       | Yes           | 200           | 1e-7                 | 1                    | 3.4e-1   |
+| SqueezeNet    | Yes           | 200           | 1e-7                 | 1                    |          |
+| MobileNetV2   | Yes           | 200           | 1e-7                 | 1                    |          |
+
+
+TRAINING
+
+| Model name    | Pretrained    | Epochs trained| Max validation accuracy | Min lr set in cyclic lr scheduler   | Max lr set in cyclic lr scheduler |
+| ------------- | ------------- | ------------- | ----------------------- | ----------------------------------- | ----------------------------------|
+| MnasNet       | Yes           | 100           | %                       |                                     |                                   |
+| SqueezeNet    | Yes           | 100           | %                       |                                     |                                   |
+| MobileNetV2   | Yes           | 100           | %                       |                                     |                                   |
 
 
 2. <b>Lr finder</b>
