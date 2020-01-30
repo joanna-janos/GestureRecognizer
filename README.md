@@ -147,6 +147,6 @@ I have to take into account the size of the model, because it should be small fo
 
 5. <b>Tensorboard</b>
 
-Run `tensorboard --logdir=results/NORMALIZATION/tensorboard` and open `http://localhost:6006` in your browser to check train/validation accuracy/loss during all epochs
+Run `tensorboard --logdir=results/` and open `http://localhost:6006` in your browser to check train/validation accuracy/loss during all epochs
 
 
