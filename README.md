@@ -104,7 +104,7 @@ LR FINDER
 | Model name    | Pretrained    | Iterations    | Min lr set in finder | Max lr set in finder | Found lr |
 | ------------- | ------------- | ------------- | -------------------- | ---------------------| ---------|
 | MnasNet       | Yes           | 200           | 1e-7                 | 1                    | 3.4e-1   |
-| SqueezeNet    | Yes           | 200           | 1e-7                 | 1                    |          |
+| SqueezeNet    | Yes           | 200           | 1e-7                 | 1                    | 1        |
 | MobileNetV2   | Yes           | 200           | 1e-7                 | 1                    |          |
 
 
