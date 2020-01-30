@@ -99,7 +99,7 @@ TRAINING
 Plots obtained using LRFinder are located under `results/NORMALIZATION/visualisations_lr_finder/MODEL_NAME/` directory.
 You can find plots for pretrained and not pretrained models under specific directories. There are 2 files: plot obtained using lr finder with information about lr value and loss in the lowest point and zoomed area of interest.
 
-Example (pretrained MnasNet):
+Example (pretrained MnasNet; without normalization):
 
 <a><img alt="lr finder result plot for pretrained MnasNet" src="results/without_normalization/visualisations_lr_finder/MnasNet/pretrained/the_lowest_point.png" width=50% height=50%></a>
 
