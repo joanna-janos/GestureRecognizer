@@ -46,6 +46,7 @@ def parse_arguments():
                         required=False,
                         help='Mean values used to data normalization, '
                              'found by find_mean_std task: [0.7315, 0.6840, 0.6410], '
+                             'for ImageNet it is: [0.485, 0.456, 0.406]'
                              'default: no normalization')
 
     parser.add_argument('--stds',
@@ -55,6 +56,7 @@ def parse_arguments():
                         required=False,
                         help='Std values used to data normalization, '
                              'found by find_mean_std task: [0.4252, 0.4546, 0.4789], '
+                             'for ImageNet it is: [0.229, 0.224, 0.225]'
                              'default: no normalization')
 
     subparsers = parser.add_subparsers(help="Task to perform:", dest="task")
