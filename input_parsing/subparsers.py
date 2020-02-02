@@ -68,18 +68,18 @@ def train(subparsers):
 
     sub_parser.add_argument('--epochs',
                             type=int,
-                            default=50,
+                            default=100,
                             required=False,
                             help='Number of epochs')
 
     sub_parser.add_argument('--base_learning_rate',
                             type=float,
-                            default=3.5e-4,
+                            default=1e-3,
                             required=False,
                             help='Base learning rate value')
 
     sub_parser.add_argument('--max_learning_rate',
                             type=float,
-                            default=3.5e-3,
+                            default=1e-2,
                             required=False,
                             help='Max learning rate value')

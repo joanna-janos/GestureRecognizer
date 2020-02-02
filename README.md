@@ -113,7 +113,7 @@ TRAINING
 | Model name    | Pretrained    | Epochs trained| Max validation accuracy | Min lr set in cyclic lr scheduler   | Max lr set in cyclic lr scheduler |
 | ------------- | ------------- | ------------- | ----------------------- | ----------------------------------- | ----------------------------------|
 | MnasNet       | Yes           | 100           | %                       |                                     |                                   |
-| SqueezeNet    | Yes           | 100           | %                       |                                     |                                   |
+| SqueezeNet    | Yes           | 100           | 81.56%                  | 1e-3                                | 1e-2                              |
 | MobileNetV2   | Yes           | 100           | %                       |                                     |                                   |
 
 
