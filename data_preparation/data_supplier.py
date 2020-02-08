@@ -1,5 +1,6 @@
 import typing
 
+import torch
 from sklearn.model_selection import train_test_split
 
 from data_preparation.dataloader import create_dataloader
@@ -8,7 +9,7 @@ from data_preparation.dataloader import create_dataloader
 def _split_into_train_and_validation(data: typing.List[str],
                                      rate: float = 0.2,
                                      seed: int = 0
-                                     ):
+                                     ) -> typing.Tuple[typing.List[str], typing.List[str], typing.List[str], typing.List[str]]:
     """ Split provided data into train and validation.
 
     Arguments
@@ -22,7 +23,7 @@ def _split_into_train_and_validation(data: typing.List[str],
 
     Returns
     -------
-    typing.List[str], typing.List[str], typing.List[str], typing.List[str]
+    typing.Tuple[typing.List[str], typing.List[str], typing.List[str], typing.List[str]]
         train samples, validation samples, train labels, validation labels
     """
     x = [img for (img, gesture) in data]
@@ -35,7 +36,7 @@ def prepare_data(data: typing.List[str],
                  batch_size: int,
                  means: typing.List[float],
                  stds: typing.List[float]
-                 ):
+                 ) -> typing.Tuple[torch.utils.data.DataLoader, torch.utils.data.DataLoader]:
     """ Prepare data for training.
     Data (path to image - label) will be split into train and validation
     and then corresponding data loaders returning image-label will be created.
@@ -53,7 +54,7 @@ def prepare_data(data: typing.List[str],
 
     Returns
     -------
-    torch.utils.data.DataLoader, torch.utils.data.DataLoader
+    typing.Tuple[torch.utils.data.DataLoader, torch.utils.data.DataLoader]
         train and validation data loaders
     """
     x_train, x_validation, y_train, y_validation = _split_into_train_and_validation(data)

@@ -43,7 +43,7 @@ class GestureDataset(Dataset):
         return self.transform(img), _gesture_name_to_class_label(self.gestures[idx])
 
 
-def _gesture_name_to_class_label(gesture_name: str):
+def _gesture_name_to_class_label(gesture_name: str) -> int:
     """ Get index of gesture name.
     Helpful while training a model (classification).
 

@@ -10,7 +10,7 @@ from data_preparation.dataset import GestureDataset
 
 def _get_img_transformations(means: typing.List[float],
                              stds: typing.List[float]
-                             ):
+                             ) -> Compose:
     """ Get all transformations to carry out on image.
     Helpful while creating GestureDataset.
 
@@ -42,7 +42,7 @@ def create_dataloader(x: typing.List[str],
                       shuffle: bool,
                       means: typing.List[float],
                       stds: typing.List[float]
-                      ):
+                      ) -> torch.utils.data.DataLoader:
     """ Create data loader for given data and labels that returns given number of samples as one batch.
 
     Arguments

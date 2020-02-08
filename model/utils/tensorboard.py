@@ -7,7 +7,7 @@ from model.utils.directory import create_not_existing_directory
 def setup_tensorboard(path_tensorboard: str,
                       model_name: str,
                       pretrained: bool
-                      ):
+                      ) -> torch.utils.tensorboard.SummaryWriter:
     """ Setup tensorboard under given directory for provided model.
     Directory for storing logs:
     PATH_TENSORBOARD/MODEL_NAME/pretrained

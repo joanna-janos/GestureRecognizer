@@ -1,9 +1,11 @@
+import typing
+
 import torch
 
 
 def get_loss_and_optimizer(model: torch.nn.Module,
                            learning_rate: float
-                           ):
+                           ) -> typing.Tuple[typing.Callable, torch.optim.Optimizer]:
     """ Get loss and optimizer used for lr finder and training.
     Util created to have the same criterion and optimizer during both tasks.
 
@@ -16,7 +18,7 @@ def get_loss_and_optimizer(model: torch.nn.Module,
 
     Returns
     -------
-    typing.Callable, torch.optim.Optimizer
+    typing.Tuple[typing.Callable, torch.optim.Optimizer]
         Loss and optimizer
     """
     loss = torch.nn.CrossEntropyLoss()
